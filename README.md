@@ -92,3 +92,7 @@ Didone-kapitalen (Bodoni Moda, OFL, lokaal), een donkere spotlight voor
 "Uit de kast" en de winkelfoto als volle band. `v2/index.html` gebruikt
 dezelfde JS en `site.css`, met `v2/v2.css` eroverheen; `data-base="../"` op
 `<html>` laat productfoto's vanuit de submap laden. Live op `/v2/`.
+
+## Impressie 2: bewegingslaag
+
+`/v2/` heeft een verfijningslaag met GSAP, ScrollTrigger en Lenis (lokaal in `assets/vendor/`), geregeld door `assets/js/motion.js` en `v2/motion.css`. Zie `REFINEMENT.md` voor analyse, motion, referenties, tests en aandachtspunten.

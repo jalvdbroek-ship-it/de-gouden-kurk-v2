@@ -1,7 +1,7 @@
 import { readFile, access } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import { dirname, join, normalize } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const problems = [];
@@ -9,7 +9,7 @@ const fail = (message) => problems.push(message);
 const exists = (path) => access(join(root, path)).then(() => true, () => false);
 const isLocal = (url) => !/^(?:[a-z]+:)?\/\//i.test(url) && !/^(?:mailto|tel|data):/i.test(url);
 
-for (const file of ["assets/js/app.js", "assets/js/catalog.js", "assets/js/products.js", "server.js", "tools/check.mjs", "tools/browser-check.mjs"]) {
+for (const file of ["assets/js/app.js", "assets/js/catalog.js", "assets/js/products.js", "assets/js/motion.js", "assets/js/motion-boot.js", "server.js", "tools/check.mjs", "tools/browser-check.mjs"]) {
   try { execFileSync(process.execPath, ["--check", join(root, file)], { stdio: "pipe" }); }
   catch (error) { fail(`syntax: ${file}: ${error.stderr}`); }
 }
@@ -51,7 +51,26 @@ for (const m of css.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)/g)) {
   if (!(await exists(join("assets/css", url)))) fail(`verwijzing: css ${url} bestaat niet`);
 }
 
-const { products, categories } = await import(join(root, "assets/js/products.js"));
+// Impressie 2 (/v2/): zelfde CSP-, verwijzings- en externe-bronregels, plus de lokaal meegeleverde bewegingsbestanden.
+const v2 = await readFile(join(root, "v2/index.html"), "utf8");
+const v2csp = v2.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)?.[1] ?? "";
+if (/unsafe-inline|unsafe-eval/.test(v2csp) || !v2csp.includes("script-src 'self'") || !v2csp.includes("style-src 'self'")) fail("v2: CSP te los of ontbreekt");
+if (/\sstyle="/.test(v2) || /\son[a-z]+="/.test(v2)) fail("v2: inline stijl of event-handler");
+const v2ids = new Set([...v2.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+for (const m of v2.matchAll(/\s(?:src|href)="([^"]+)"/g)) {
+  const url = m[1].replaceAll("&amp;", "&");
+  if (url.startsWith("#")) { if (url.length > 1 && !v2ids.has(url.slice(1))) fail(`v2 anker: ${url} bestaat niet`); continue; }
+  if (!isLocal(url)) continue;
+  if (!(await exists(join("v2", url.split(/[?#]/)[0])))) fail(`v2 verwijzing: ${url} bestaat niet`);
+}
+for (const m of v2.matchAll(/<(?:img|script|link)[^>]*\s(?:src|href)="(https?:\/\/[^"]+)"/g)) fail(`v2 extern: runtime-bron ${m[1]}`);
+for (const lib of ["gsap.min.js", "ScrollTrigger.min.js", "lenis.min.js", "LICENSES.txt"]) if (!(await exists(`assets/vendor/${lib}`))) fail(`v2: assets/vendor/${lib} ontbreekt`);
+for (const required of ["Websiteconcept", "Alcoholwet", "Geniet, maar drink met mate", "data-gate-yes", "3181 CG"]) if (!v2.includes(required)) fail(`v2 inhoud: mist "${required}"`);
+const v2css = (await readFile(join(root, "v2/motion.css"), "utf8")) + (await readFile(join(root, "v2/v2.css"), "utf8"));
+if (/transition:\s*all/.test(v2css)) fail("v2: transition: all in CSS");
+if (!/prefers-reduced-motion/.test(css) || !/has-motion/.test(v2css)) fail("v2: reduced-motion-pad ontbreekt");
+
+const { products, categories } = await import(pathToFileURL(join(root, "assets/js/products.js")).href);
 const categoryIds = new Set(categories.map((c) => c.id));
 const seen = new Set();
 for (const p of products) {

@@ -370,7 +370,7 @@ $("[data-open-credits]").addEventListener("click", () => openDialog($("[data-cre
 
 /* ---------- reveal ---------- */
 
-if (!reducedMotion.matches && "IntersectionObserver" in window) {
+if (!reducedMotion.matches && !document.documentElement.dataset.motion && "IntersectionObserver" in window) {
   const observer = new IntersectionObserver((entries) => {
     for (const entry of entries) if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target); }
   }, { rootMargin: "0px 0px -8% 0px" });
