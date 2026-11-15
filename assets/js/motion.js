@@ -74,6 +74,7 @@ function start() {
     visit();
     footer();
     pointerDepth();
+    flyToCart();
   });
 
   function smoothScroll() {
@@ -142,6 +143,8 @@ function start() {
     gsap.set(facts, { y: 18 });
     gsap.set(bottles, { y: 70, opacity: 1, clipPath: "inset(100% -40% -60% -40%)", "--px": 0, "--py": 0 });
     gsap.set(".hero__glow", { opacity: 0, "--px": 0, "--py": 0 });
+    const drifters = $$(".swirl g path:not([filter])").filter((path, i) => i !== 0);
+    gsap.set(drifters, { y: 26 });
 
     const play = () => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.15 });
@@ -151,7 +154,11 @@ function start() {
         .to(titleWords, { yPercent: 0, duration: 1.2, stagger: 0.075, ease: "expo.out" }, 0.25)
         .to(copy.slice(1), { opacity: 1, y: 0, duration: 1, stagger: 0.12 }, 0.85)
         .to(bottles, { y: 0, clipPath: "inset(-20% -40% -60% -40%)", duration: 1.6, stagger: 0.16, ease: "expo.out", clearProps: "clipPath" }, 0.4)
-        .to(facts, { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 }, 1.25);
+        .to(facts, { opacity: 1, y: 0, duration: 0.9, stagger: 0.1 }, 1.25)
+        .to(drifters, { y: 0, duration: 3.2, stagger: 0.18, ease: "power2.out" }, 0.1)
+        .add(countUp, 1.3)
+        .add(glint, 3)
+        .add(() => drift(drifters), 3.4);
     };
     if (root.classList.contains("is-welcome")) play();
     else {
@@ -173,6 +180,99 @@ function start() {
     });
     mm.add("(max-width: 899px)", () => {
       gsap.to(".hero__copy", { y: 40, opacity: 0.35, ease: "none", scrollTrigger: scrub });
+    });
+  }
+
+  // De winkelaantallen tellen één keer op; de breedte wordt vastgezet zodat de tekst ernaast niet meebeweegt.
+  function countUp() {
+    const num = $(".hero__fact-num");
+    const match = num && /^(\d+)(\D*)$/.exec(num.textContent.trim());
+    if (!match) return;
+    const [, end, suffix] = match;
+    num.style.minWidth = `${num.offsetWidth}px`;
+    const state = { v: 0 };
+    num.textContent = `0${suffix}`;
+    gsap.to(state, { v: Number(end), duration: 1.8, ease: "power2.out", onUpdate: () => { num.textContent = `${Math.round(state.v)}${suffix}`; }, onComplete: () => { num.textContent = `${end}${suffix}`; } });
+  }
+
+  // Na het opkomen drijven de dunne lijnen heel langzaam door: eigen tempo, een paar pixels, nooit ritmisch.
+  function drift(lines) {
+    if (!root.classList.contains("has-motion")) return;
+    const ambient = gsap.timeline({ paused: true });
+    lines.forEach((line, i) => {
+      ambient.to(line, { y: i % 2 ? -7 : 7, x: i % 2 ? 9 : -9, duration: 8 + i * 1.7, ease: "sine.inOut", repeat: -1, yoyo: true }, i * 0.9);
+    });
+    ambient.to(".swirl", { x: 8, duration: 13, ease: "sine.inOut", repeat: -1, yoyo: true }, 0);
+    ScrollTrigger.create({
+      trigger: ".hero", start: "top top", end: "bottom top",
+      onToggle: (self) => {
+        if (!root.classList.contains("has-motion")) { ambient.kill(); return; }
+        if (self.isActive) ambient.play(); else ambient.pause();
+      }
+    });
+    if (ScrollTrigger.isInViewport?.(".hero")) ambient.play();
+  }
+
+  // Een lichtpunt reist af en toe over de gouden hoofdlijn; stopt zodra de hero uit beeld is.
+  function glint() {
+    const base = $(".swirl g path:nth-of-type(2)");
+    if (!base || !root.classList.contains("has-motion")) return;
+    const light = base.cloneNode();
+    for (const name of ["filter", "opacity", "stroke-width"]) light.removeAttribute(name);
+    light.setAttribute("pathLength", "1");
+    light.setAttribute("stroke", "#fff1cf");
+    light.setAttribute("stroke-width", "2.4");
+    light.classList.add("swirl__glint");
+    base.after(light);
+    gsap.set(light, { strokeDasharray: "0.07 2", strokeDashoffset: 0.07, opacity: 0 });
+    const loop = gsap.timeline({ repeat: -1, repeatDelay: 8, onRepeat: () => { if (!root.classList.contains("has-motion")) loop.kill(); } });
+    loop.to(light, { opacity: 0.95, duration: 0.4, ease: "none" }, 0)
+      .to(light, { strokeDashoffset: -1, duration: 3.2, ease: "power1.inOut" }, 0)
+      .to(light, { opacity: 0, duration: 0.5, ease: "none" }, 2.7);
+    ScrollTrigger.create({ trigger: ".hero", start: "top top", end: "bottom top", onToggle: (self) => (self.isActive ? loop.play() : loop.pause()) });
+  }
+
+  // "In de mand": de fles vliegt in een boog naar de mandknop. Alleen als de teller echt verandert.
+  function flyToCart() {
+    const badge = $("[data-cart-count]");
+    const cartButton = $("[data-open-cart]");
+    if (!badge || !cartButton) return;
+    let pending = null;
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest?.(".add, .button--dark");
+      if (!button || !root.classList.contains("has-motion") || !/in de mand/i.test(button.textContent)) { pending = null; return; }
+      const image = $(".card__stage img", button.closest(".card") ?? document.createElement("i")) ?? $("img", button.closest("dialog") ?? document.createElement("i"));
+      if (!image?.currentSrc) { pending = null; return; }
+      const box = image.getBoundingClientRect();
+      pending = { src: image.currentSrc, box, count: badge.textContent };
+    }, true);
+    document.addEventListener("click", () => {
+      const job = pending;
+      pending = null;
+      if (!job || badge.textContent === job.count || !root.classList.contains("has-motion")) return;
+      const from = job.box;
+      const to = cartButton.getBoundingClientRect();
+      if (!from.width || !to.width) return;
+      const fly = new Image();
+      fly.src = job.src;
+      fly.alt = "";
+      fly.className = "fly";
+      fly.setAttribute("aria-hidden", "true");
+      fly.style.width = `${from.width}px`;
+      fly.style.height = `${from.height}px`;
+      document.body.append(fly);
+      const dx = to.left + to.width / 2 - (from.left + from.width / 2);
+      const dy = to.top + to.height / 2 - (from.top + from.height / 2);
+      gsap.set(fly, { x: from.left, y: from.top });
+      const done = () => {
+        fly.remove();
+        gsap.fromTo(cartButton, { scale: 1.07 }, { scale: 1, duration: 0.7, ease: "elastic.out(1, 0.5)", clearProps: "transform" });
+      };
+      gsap.timeline({ onComplete: done })
+        .to(fly, { x: from.left + dx, duration: 0.85, ease: "power2.inOut" }, 0)
+        .to(fly, { y: from.top + dy, duration: 0.85, ease: "power3.in" }, 0)
+        .to(fly, { scale: 0.12, rotation: 14, duration: 0.85, ease: "power2.in", transformOrigin: "50% 50%" }, 0)
+        .to(fly, { opacity: 0, duration: 0.2, ease: "none" }, 0.65);
     });
   }
 

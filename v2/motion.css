@@ -96,6 +96,10 @@ html.has-motion .hero__kicker, html.has-motion .hero__lead, html.has-motion .her
 html.has-motion .hero__title { visibility: hidden; }
 html.has-motion.js.is-welcome .shelf__bottle, html.has-motion.js .shelf__bottle { opacity: 0; transform: none; transition: none; }
 
+/* Fles die naar de mand vliegt */
+.fly { position: fixed; left: 0; top: 0; z-index: 300; max-width: none; object-fit: contain; pointer-events: none; filter: drop-shadow(0 12px 14px rgb(18 16 14 / 0.35)); will-change: transform; }
+html.has-motion .hero__fact-num { font-variant-numeric: tabular-nums; }
+
 /* Lenis */
 html.lenis, html.lenis body { height: auto; }
 html.lenis { scroll-behavior: auto !important; }

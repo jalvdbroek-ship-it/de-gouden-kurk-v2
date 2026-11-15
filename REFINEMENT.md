@@ -30,6 +30,9 @@ Preview: `npm start`, dan http://127.0.0.1:4174/v2/
 | Bezoek | Kaart onthult met inzoom, speld valt erop |
 | Navigatie | Voortgangslijn in goud, actieve sectie (`aria-current`), overige links dimmen bij hover, menupaneel opent met clip-path en gestaffelde links |
 | Overig | Glans over primaire knoppen, leeftijdspoort bouwt gestaffeld op |
+| Hero, gouden lijnen | De dunne lijnen komen zacht omhoog terwijl ze zich tekenen en drijven daarna langzaam door (een paar pixels, 8 tot 13 s per beweging, elk in eigen tempo). Pauzeert buiten beeld, uit bij reduced motion |
+| Hero, extra accenten | "340+" telt eenmalig op; een lichtpunt reist af en toe (elke ~11 s) over de gouden hoofdlijn en pauzeert buiten beeld |
+| "In de mand" | De fles vliegt in een boog naar de mandknop, die licht veert. Alleen als de teller echt oploopt; nooit bij reduced motion |
 
 Reduced motion: geen bibliotheek wordt gestart, geen verborgen startstanden, alles direct zichtbaar. Zonder JavaScript: ook alles zichtbaar. Als de bibliotheken niet laden, valt de pagina terug op de statische versie.
 

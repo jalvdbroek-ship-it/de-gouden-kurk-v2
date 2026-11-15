@@ -66,6 +66,29 @@ async function fresh(opts = {}) {
   ok("reduced motion: alles direct zichtbaar", op.every((o) => o === "1"));
   ok("reduced motion: geen reveal-klassen", (await page.locator(".reveal").count()) === 0);
   await ctx.close(); }
+if (new URL(base).pathname.startsWith("/v2")) {
+  { const { ctx, page } = await fresh();
+    await page.click("[data-gate-yes]");
+    await page.waitForTimeout(4500);
+    ok("v2: hero-telling eindigt op 340+", (await page.textContent(".hero__fact-num")).trim() === "340+");
+    ok("v2: lichtglans over de gouden lijn aanwezig", (await page.locator(".swirl__glint").count()) === 1);
+    const spots = async () => page.evaluate(() => [...document.querySelectorAll(".swirl g path:not([filter]):not(.swirl__glint)")].map((p) => p.getBoundingClientRect().top));
+    const before = await spots(); await page.waitForTimeout(1500); const after = await spots();
+    ok("v2: dunne lijnen drijven door, maar zacht (minder dan 12 px per 1,5 s)", after.some((v, i) => Math.abs(v - before[i]) > 0.05) && after.every((v, i) => Math.abs(v - before[i]) < 12));
+    await page.locator("#collectie .add").first().scrollIntoViewIfNeeded();
+    await page.click("#collectie .add >> nth=0");
+    await page.waitForSelector(".fly", { timeout: 500 });
+    ok("v2: fles vliegt naar de mand", true);
+    await page.waitForFunction(() => !document.querySelector(".fly"), null, { timeout: 3000 });
+    ok("v2: vliegende fles verdwijnt weer en teller telt", (await page.textContent("[data-cart-count]")) === "1");
+    await ctx.close(); }
+  { const { ctx, page } = await fresh({ reducedMotion: "reduce" });
+    await page.click("[data-gate-yes]");
+    await page.click("#collectie .add >> nth=0");
+    await page.waitForTimeout(300);
+    ok("v2 reduced motion: geen glans en geen vliegende fles", (await page.locator(".swirl__glint, .fly").count()) === 0 && (await page.textContent(".hero__fact-num")).trim() === "340+");
+    await ctx.close(); }
+}
 { const ctx = await browser.newContext({ javaScriptEnabled: false }); const page = await ctx.newPage();
   await page.goto(base);
   ok("zonder JavaScript: inhoud zichtbaar en noscript-melding", await page.locator("#winkel h2").isVisible() && await page.locator(".noscript").isVisible());
