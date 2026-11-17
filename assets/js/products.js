@@ -61,8 +61,8 @@ const records = [
     featured: false,
     image: "assets/products/beefeater-london-dry.webp",
     imageAlt: "Fles Beefeater London Dry Gin",
-    imageWidth: 116,
-    imageHeight: 400,
+    imageWidth: 260,
+    imageHeight: 900,
     credit: {
       title: "Beefeater London Dry Gin",
       creator: "Open Food Facts / product photo contributors",

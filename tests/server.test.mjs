@@ -26,3 +26,28 @@ test("alleen GET en HEAD", async () => {
   assert.equal(res.status, 405);
   assert.equal(res.headers.get("allow"), "GET, HEAD");
 });
+
+test("de hoofdsite is zwart-goud, het eerste ontwerp staat op /v1/ en /v2/ verwijst door", async () => {
+  const home = await (await fetch(`${base}/`)).text();
+  assert.match(home, /data-motion="gsap"/);
+  assert.match(home, /href="assets\/css\/zwart-goud\.css"/);
+  const v1 = await fetch(`${base}/v1/`);
+  assert.equal(v1.status, 200);
+  assert.match(await v1.text(), /data-base="\.\.\/"/);
+  const v2 = await (await fetch(`${base}/v2/`)).text();
+  assert.match(v2, /http-equiv="refresh" content="0; url=\.\.\/"/);
+  assert.match(v2, /<a href="\.\.\/">/);
+});
+
+test("privacy staat er, een onbekend adres geeft de 404-pagina, ook onder het Pages-pad", async () => {
+  const privacy = await fetch(`${base}/privacy.html`);
+  assert.equal(privacy.status, 200);
+  assert.match(await privacy.text(), /Wat de site niet doet/);
+  for (const path of ["/bestaat-niet", "/a/b/c.html", "/de-gouden-kurk-v2/bestaat-niet"]) {
+    const res = await fetch(`${base}${path}`);
+    assert.equal(res.status, 404, path);
+    assert.match(await res.text(), /Deze pagina bestaat niet/, path);
+  }
+  assert.equal((await fetch(`${base}/de-gouden-kurk-v2/assets/css/site.css`)).status, 200);
+  assert.equal((await fetch(`${base}/assets/img/deelbeeld.jpg`)).headers.get("content-type"), "image/jpeg");
+});

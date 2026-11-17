@@ -1,4 +1,4 @@
-// Bewegingslaag voor /v2/: GSAP + ScrollTrigger + Lenis, lokaal gehost. Geen van deze bestanden is nodig voor de inhoud:
+// Bewegingslaag voor de zwart-gouden hoofdsite: GSAP + ScrollTrigger + Lenis, lokaal gehost. Geen van deze bestanden is nodig voor de inhoud:
 // zonder bibliotheken, zonder JavaScript of met prefers-reduced-motion blijft alles zichtbaar en werkt alles.
 const root = document.documentElement;
 const $ = (selector, scope = document) => scope.querySelector(selector);

@@ -1,5 +1,5 @@
 /* De Gouden Kurk, impressie 2: zwart, goud en Didone-kapitalen. Laagt over ../assets/css/site.css. */
-@font-face { font-family: "Bodoni Moda"; src: url("../assets/fonts/bodoni-moda-latin.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Bodoni Moda"; src: url("../fonts/bodoni-moda-latin.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 
 :root {
   --night: #0a0908;
@@ -240,4 +240,51 @@ body { background: var(--night); }
   .deco { display: none; }
   #samenstellingen .section-head--split { grid-template-columns: 1fr; }
   #ontvangen .ways { max-width: none; }
+}
+
+/* round 7: The Taste Club, footer links, narrow header, privacy and 404 */
+.club { position: relative; overflow: hidden; background: radial-gradient(45% 60% at 78% 50%, rgb(217 180 104 / 0.16), rgb(217 180 104 / 0) 70%), var(--night); color: var(--light); }
+.club__grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+.club__copy { display: grid; gap: 1.4rem; justify-items: start; max-width: 38rem; }
+.club__copy .section-head { margin-bottom: 0.4rem; }
+.club__copy > p { color: var(--light-soft); }
+.club__list { width: 100%; border-top: 1px solid var(--line-light); }
+.club__list li { padding: 0.95rem 0; border-bottom: 1px solid var(--line-light); font: 400 1.1rem/1.25 var(--display); text-transform: uppercase; color: var(--light); }
+.club__note { font-size: 0.875rem; }
+.club__phone { justify-self: center; width: min(17.5rem, 100%); margin: 0; padding: 0.55rem; border: 1px solid rgb(217 180 104 / 0.45); border-radius: 2.4rem; background: #050404; box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.9), 0 0 0 6px rgb(217 180 104 / 0.06); }
+.club__phone img { display: block; width: 100%; height: auto; border-radius: 1.9rem; }
+@media (max-width: 899px) {
+  .club__grid { grid-template-columns: 1fr; }
+  .club__phone { width: min(15rem, 78%); }
+}
+
+.footer__links { display: grid; gap: 0.6rem; margin-top: 1.1rem; }
+.footer .footer__links .link-button { margin-top: 0; }
+
+@media (max-width: 360px) {
+  .header__inner { gap: 0.75rem; }
+  .brand { gap: 0.5rem; }
+  .cart-button { min-height: 2.75rem; padding: 0 0.6rem; }
+}
+
+.subpage-head { padding: clamp(3rem, 8vw, 6rem) 0 clamp(2.5rem, 6vw, 4.5rem); background: radial-gradient(60% 90% at 80% 0%, rgb(217 180 104 / 0.14), rgb(217 180 104 / 0) 70%), var(--night); color: var(--light); }
+.subpage-head .wrap { display: grid; gap: 1.2rem; justify-items: start; }
+.subpage-head p { max-width: 40rem; color: var(--light-soft); }
+.subpage-head .section-title { color: var(--light); }
+.subpage-body { background: var(--ivory); color: var(--ink); padding-block: clamp(3rem, 7vw, 5.5rem); }
+.prose { display: grid; gap: 1.1rem; }
+.prose > * { max-width: 44rem; }
+.prose h2 { margin-top: 1.4rem; font: 400 1.6rem/1.15 var(--display); text-transform: uppercase; }
+.prose p, .prose li { color: var(--ink-soft); }
+.prose ul { display: grid; gap: 0.5rem; padding-left: 1.25rem; list-style: disc; }
+.prose a:not(.button) { color: var(--ink); }
+.prose__date { font-size: 0.875rem; }
+.subpage-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.subpage .header__actions { margin-left: auto; }
+.subpage .footer { padding-top: 0.5rem; }
+@media (max-width: 360px) {
+  .section-title { font-size: 1.85rem; }
+}
+@media (max-width: 340px) {
+  .header .brand__mark { display: none; }
 }

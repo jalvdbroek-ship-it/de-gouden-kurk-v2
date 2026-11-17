@@ -370,7 +370,7 @@ dialog[open] { animation: rise 320ms var(--ease); }
 .line__unit { font-size: 0.8125rem; color: var(--ink-soft); margin-top: 0.15rem; }
 .line__controls { display: flex; align-items: center; gap: 1rem; margin-top: 0.6rem; }
 .line__controls .stepper__button { width: 2.25rem; height: 2.25rem; }
-.line__total { font: 600 1.2rem/1 var(--serif); font-variant-numeric: tabular-nums; }
+.line__total { font: 600 1.2rem/1 var(--serif); font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 .sheet--checkout { width: min(64rem, 100% - 2rem); }
 .checkout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }

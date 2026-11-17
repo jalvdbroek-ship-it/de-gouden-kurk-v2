@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="nl">
+<html lang="nl" data-base="" data-motion="gsap" class="v2">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,11 +12,26 @@
   <meta property="og:locale" content="nl_NL">
   <meta property="og:title" content="De Gouden Kurk · Slijterij in Rozenburg">
   <meta property="og:description" content="Ruim 340 spiritualiën en persoonlijk advies aan het Raadhuisplein.">
+  <meta property="og:url" content="https://jalvdbroek-ship-it.github.io/de-gouden-kurk-v2/">
+  <meta property="og:image" content="https://jalvdbroek-ship-it.github.io/de-gouden-kurk-v2/assets/img/deelbeeld.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="De Gouden Kurk, slijterij aan het Raadhuisplein 6 in Rozenburg, met drie flessen op een donkere achtergrond.">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/img/merkteken.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preload" href="assets/fonts/cormorant-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/bodoni-moda-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/zwart-goud.css">
+  <link rel="stylesheet" href="assets/css/motion.css">
+  <script src="assets/js/motion-boot.js"></script>
+  <script defer src="assets/vendor/gsap.min.js"></script>
+  <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="assets/vendor/lenis.min.js"></script>
   <script type="module" src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/motion.js"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -85,14 +100,30 @@
 
   <main id="inhoud">
     <section class="hero" id="top" aria-labelledby="hero-titel">
+      <svg class="swirl" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="goud" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6b4a1c" stop-opacity="0"/><stop offset=".35" stop-color="#e9c983"/><stop offset=".6" stop-color="#b8893f"/><stop offset="1" stop-color="#6b4a1c" stop-opacity="0"/></linearGradient>
+          <filter id="zacht" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="2.2"/></filter>
+          <filter id="waas" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14"/></filter>
+        </defs>
+        <g fill="none" stroke="url(#goud)" stroke-linecap="round">
+          <path filter="url(#waas)" stroke-width="22" opacity=".35" d="M-40 760C260 700 420 520 640 560s300 220 520 120 260-330 360-420"/>
+          <path stroke-width="1.6" d="M-40 760C260 700 420 520 640 560s300 220 520 120 260-330 360-420"/>
+          <path stroke-width=".9" opacity=".7" d="M-40 790C250 735 430 560 650 595s310 210 520 110 250-320 340-410"/>
+          <path stroke-width=".6" opacity=".5" d="M-40 820C240 770 440 600 660 630s320 200 520 100 240-310 320-400"/>
+          <path filter="url(#zacht)" stroke-width="3" opacity=".45" d="M-40 735C270 670 410 490 630 525s290 230 520 130 270-340 380-430"/>
+          <path stroke-width=".5" opacity=".35" d="M120 900C340 760 520 700 700 720s360 120 560-40 200-420 260-520"/>
+          <path stroke-width=".5" opacity=".25" d="M-40 600C180 560 300 420 470 430s220 120 360 40"/>
+        </g>
+      </svg>
       <div class="hero__glow" aria-hidden="true"></div>
       <div class="hero__inner">
         <div class="hero__copy">
-          <p class="eyebrow eyebrow--light">Raadhuisplein 6 · Rozenburg</p>
-          <h1 class="hero__title" id="hero-titel">Een goede fles begint aan de <em>toonbank</em>.</h1>
+          <p class="hero__kicker">Slijterij aan het Raadhuisplein 6, Rozenburg</p>
+          <h1 class="hero__title" id="hero-titel">Een goede fles<br><em>begint</em> aan de<br><em>toonbank</em></h1>
           <p class="hero__lead">Ruim 340 spiritualiën, van een vertrouwde blend tot de fles die je niet in elke supermarkt vindt. Kies online en haal op aan het Raadhuisplein, of laat hem bezorgen in Rozenburg.</p>
           <div class="hero__actions">
-            <a class="button button--brass" href="#collectie">Bekijk de collectie</a>
+            <a class="button button--brass" href="#collectie">Bekijk de collectie <span aria-hidden="true">→</span></a>
             <a class="button button--outline-light" href="#advies">Vraag om advies</a>
           </div>
         </div>
@@ -106,6 +137,21 @@
         <li><span class="hero__fact-num">2026</span><span>sinds januari aan het Raadhuisplein</span></li>
         <li><span class="hero__fact-num">18+</span><span>leeftijdscontrole bij elke bestelling</span></li>
       </ul>
+    </section>
+
+    <section class="section intro" id="winkel" aria-labelledby="winkel-titel">
+      <div class="intro__bottles" aria-hidden="true">
+        <img class="intro__b intro__b--1" src="assets/products/ballantines-finest.webp" alt="" width="320" height="900" loading="lazy" decoding="async">
+        <img class="intro__b intro__b--2" src="assets/products/gordons-london-dry.webp" alt="" width="300" height="900" loading="lazy" decoding="async">
+        <img class="intro__b intro__b--3" src="assets/products/hennessy-vs.webp" alt="" width="400" height="900" loading="lazy" decoding="async">
+      </div>
+      <div class="intro__copy story__copy">
+        <h2 class="section-title" id="winkel-titel">Groot in dranken, <em>dichtbij</em> in advies</h2>
+        <p>De Gouden Kurk opende begin januari 2026 in het voormalige pand van De Tuinwijzer aan het Raadhuisplein. Op de planken staan ruim 340 spiritualiën: bekende whisky en gin, jenever, wodka en likeuren, en flessen die je niet in elke supermarkt vindt.</p>
+        <p>Naast de slijterij zit de supermarkt, met wijn, bier en zwak-alcoholische dranken. Eén adres voor de snelle boodschap en voor een goed gesprek over de fles die je zoekt.</p>
+        <p class="story__source">Bron: <a href="https://www.rodi.nl/rozenburg/nieuws/108613/run-op-nieuwe-slijterij" rel="noopener">Rodi, 8 januari 2026</a></p>
+        <a class="button button--line" href="#collectie">Bekijk de collectie <span aria-hidden="true">→</span></a>
+      </div>
     </section>
 
     <section class="section section--ivory" id="uit-de-kast" aria-labelledby="kast-titel">
@@ -173,6 +219,7 @@
     </section>
 
     <section class="section section--ivory" id="samenstellingen" aria-labelledby="samen-titel">
+      <img class="deco deco--sets" src="assets/products/martini-bianco.webp" alt="" width="300" height="900" loading="lazy" decoding="async" aria-hidden="true">
       <div class="wrap">
         <div class="section-head section-head--split">
           <div>
@@ -205,6 +252,7 @@
     </section>
 
     <section class="section section--paper" id="ontvangen" aria-labelledby="ontvangen-titel">
+      <img class="deco deco--ways" src="assets/products/beefeater-london-dry.webp" alt="" width="300" height="900" loading="lazy" decoding="async" aria-hidden="true">
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Afhalen of bezorgen</p>
@@ -234,16 +282,26 @@
       </div>
     </section>
 
-    <section class="section section--night" id="winkel" aria-labelledby="winkel-titel">
-      <div class="wrap story">
-        <p class="story__num" aria-hidden="true">340<span>+</span></p>
-        <div class="story__copy">
-          <p class="eyebrow eyebrow--light">De winkel</p>
-          <h2 class="section-title section-title--light" id="winkel-titel">Groot in dranken, dichtbij in advies.</h2>
-          <p>De Gouden Kurk opende begin januari 2026 in het voormalige pand van De Tuinwijzer aan het Raadhuisplein. Op de planken staan ruim 340 spiritualiën: bekende whisky en gin, jenever, wodka en likeuren, en flessen die je niet in elke supermarkt vindt.</p>
-          <p>Naast de slijterij zit de supermarkt, met wijn, bier en zwak-alcoholische dranken. Eén adres voor de snelle boodschap en voor een goed gesprek over de fles die je zoekt.</p>
-          <p class="story__source">Bron: <a href="https://www.rodi.nl/rozenburg/nieuws/108613/run-op-nieuwe-slijterij" rel="noopener">Rodi, 8 januari 2026</a></p>
+
+    <section class="section club" id="app" aria-labelledby="app-titel">
+      <div class="wrap club__grid">
+        <div class="club__copy">
+          <div class="section-head">
+            <p class="eyebrow eyebrow--light">The Taste Club</p>
+            <h2 class="section-title section-title--light" id="app-titel">De toonbank, ook <em>op je telefoon.</em></h2>
+          </div>
+          <p>The Taste Club is de app van De Gouden Kurk. Ontdek welke smaak bij je past, zoek een cadeau voor iemand anders en houd je eigen flessen en proefnotities bij.</p>
+          <ul class="club__list">
+            <li>Een smaaktest in zes vragen</li>
+            <li>Cadeauhulp, met een eigen boodschap</li>
+            <li>Je collectie en proefnotities</li>
+          </ul>
+          <p class="club__note">Een demo: geen account nodig, en wat je invult blijft op je eigen telefoon.</p>
+          <a class="button button--brass" href="https://jalvdbroek-ship-it.github.io/the-taste-club/" rel="noopener">Open The Taste Club <span aria-hidden="true">→</span></a>
         </div>
+        <figure class="club__phone">
+          <img src="assets/img/app-taste-club.webp" width="560" height="1212" loading="lazy" decoding="async" alt="Het beginscherm van The Taste Club op een telefoon, in zwart en goud.">
+        </figure>
       </div>
     </section>
 
@@ -287,13 +345,19 @@
           <li><a href="#advies">Advies</a></li>
           <li><a href="#samenstellingen">Samenstellingen</a></li>
           <li><a href="#ontvangen">Afhalen &amp; bezorgen</a></li>
+          <li><a href="#winkel">De winkel</a></li>
+          <li><a href="#app">The Taste Club</a></li>
           <li><a href="#bezoek">Bezoek</a></li>
         </ul>
       </nav>
       <div>
         <p class="footer__label">Over dit concept</p>
         <p>Een websiteconcept door Webrnds. Assortiment, prijzen en voorraad zijn voorbeelden; er wordt niets besteld, betaald of opgeslagen.</p>
-        <button class="link-button" type="button" data-open-credits aria-haspopup="dialog">Beeldcredits</button>
+        <ul class="footer__links">
+          <li><button class="link-button" type="button" data-open-credits aria-haspopup="dialog">Beeldcredits</button></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a class="footer__switch" href="v1/">Eerste ontwerp</a></li>
+        </ul>
       </div>
     </div>
     <div class="wrap footer__bottom">

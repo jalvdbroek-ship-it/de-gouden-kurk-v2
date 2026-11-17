@@ -1,4 +1,4 @@
-# De Gouden Kurk — websiteconcept v1
+# De Gouden Kurk, websiteconcept
 
 Een websiteconcept voor De Gouden Kurk, de slijterij aan het Raadhuisplein 6 in
 Rozenburg. Gebouwd door Webrnds als vervolg op Johns eerste concept
@@ -55,8 +55,10 @@ José Cuervo is weggelaten: er stond een hand om de fles die niet netjes weg te
 halen was, en er was geen vrije vervanger. Daarom staat tequila niet in de
 voorbeeldcollectie.
 
-Beefeater (116×400), Havana Club (114×400) en J&B (103×297) zijn klein en ogen
-op een retina-scherm zacht. Voor livegang zijn leveranciersfoto's nodig.
+Beefeater is in november 2026 vervangen door de grotere versie van dezelfde
+Open Food Facts-foto (260×900, achtergrond weggehaald). Havana Club (114×400)
+en J&B (103×297) zijn klein en ogen op een retina-scherm zacht; er was geen
+grotere vrije foto van precies die fles. Voor livegang zijn leveranciersfoto's nodig.
 
 De winkelfoto komt uit Rodi (8 januari 2026). Gebruik buiten dit concept vraagt
 toestemming of een eigen foto.
@@ -82,17 +84,20 @@ terugkomt.
 ## Publiceren
 
 Elke statische host werkt (GitHub Pages, Cloudflare Pages): de map zoals hij
-is. Alle paden zijn relatief. Er is nog niets gepubliceerd; waar de preview
-komt te staan is een open vraag in de brief.
+is. Alle paden zijn relatief, behalve in `404.html`. Nu op GitHub Pages; zie
+`.github/workflows/pages.yml`.
 
-## Impressie 2 (`v2/`)
+## Opbouw
 
-Een tweede ontwerprichting op dezelfde inhoud en functies: zwart en goud,
-Didone-kapitalen (Bodoni Moda, OFL, lokaal), een donkere spotlight voor
-"Uit de kast" en de winkelfoto als volle band. `v2/index.html` gebruikt
-dezelfde JS en `site.css`, met `v2/v2.css` eroverheen; `data-base="../"` op
-`<html>` laat productfoto's vanuit de submap laden. Live op `/v2/`.
+| Adres | Wat |
+| --- | --- |
+| `/` (`index.html`) | De hoofdsite in zwart en goud, met Bodoni-kapitalen en een bewegingslaag (GSAP, ScrollTrigger en Lenis, lokaal in `assets/vendor/`). Stijl: `assets/css/site.css` met `zwart-goud.css` en `motion.css` erover. |
+| `/v1/` | Het eerste ontwerp (licht, wijnrood), ter vergelijking. `data-base="../"` laat de productfoto's vanuit de submap laden. |
+| `/v2/` | Doorverwijzing naar `/`, zodat oude links blijven werken. |
+| `/privacy.html` | Wat het concept met gegevens doet en wat niet. |
+| `/404.html` | Pagina voor een onbekend adres. Gebruikt absolute paden onder `/de-gouden-kurk-v2/`, omdat GitHub Pages hem op elke diepte toont; `server.js` accepteert dat voorvoegsel lokaal ook. |
+| `/social/` | Online portfolio van het socialpakket, gemaakt met `maak-portfolio.mjs` in `../social-media/editable-projects/generator/`. |
 
-## Impressie 2: bewegingslaag
+`tools/maak-deelbeeld.mjs` maakt het deelbeeld (`assets/img/deelbeeld.jpg`, 1200×630) en het icoon voor het beginscherm (`apple-touch-icon.png`). De sectie "The Taste Club" linkt naar de app op https://jalvdbroek-ship-it.github.io/the-taste-club/.
 
-`/v2/` heeft een verfijningslaag met GSAP, ScrollTrigger en Lenis (lokaal in `assets/vendor/`), geregeld door `assets/js/motion.js` en `v2/motion.css`. Zie `REFINEMENT.md` voor analyse, motion, referenties, tests en aandachtspunten.
+Live: https://jalvdbroek-ship-it.github.io/de-gouden-kurk-v2/ (GitHub Pages vanaf `main` van `jalvdbroek-ship-it/de-gouden-kurk-v2`). Zie `REFINEMENT.md` voor de bewegingslaag en `REVIEW.md` voor de laatste review.
