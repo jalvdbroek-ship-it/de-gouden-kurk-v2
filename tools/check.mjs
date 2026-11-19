@@ -9,7 +9,7 @@ const fail = (message) => problems.push(message);
 const exists = (path) => access(join(root, path)).then(() => true, () => false);
 const isLocal = (url) => !/^(?:[a-z]+:)?\/\//i.test(url) && !/^(?:mailto|tel|data):/i.test(url);
 
-for (const file of ["assets/js/app.js", "assets/js/catalog.js", "assets/js/products.js", "assets/js/motion.js", "assets/js/motion-boot.js", "server.js", "tools/check.mjs", "tools/browser-check.mjs"]) {
+for (const file of ["assets/js/app.js", "assets/js/catalog.js", "assets/js/products.js", "assets/js/motion.js", "assets/js/motion-boot.js", "assets/js/feest.js", "assets/js/feestdagen.js", "server.js", "tools/check.mjs", "tools/browser-check.mjs"]) {
   try { execFileSync(process.execPath, ["--check", join(root, file)], { stdio: "pipe" }); }
   catch (error) { fail(`syntax: ${file}: ${error.stderr}`); }
 }
@@ -77,6 +77,17 @@ if (!/http-equiv="refresh" content="0; url=\.\.\/"/.test(checked["v2/index.html"
 for (const page of ["privacy.html", "404.html"]) if (!checked[page].html.includes("Geniet, maar drink met mate")) fail(`${page}: NIX18-regel ontbreekt`);
 if (!html.includes('href="privacy.html"') || !/<meta property="og:image" content="https:\/\/[^"]+\.jpg">/.test(html) || !html.includes('rel="apple-touch-icon"')) fail("inhoud: privacylink, og:image of apple-touch-icon ontbreekt");
 for (const required of ["Websiteconcept", "Alcoholwet", "Geniet, maar drink met mate", "data-gate-yes", "3181 CG"]) if (!checked["v1/index.html"].html.includes(required)) fail(`v1 inhoud: mist "${required}"`);
+
+// Feestdagen: vier perioden met recepten, versie zonder alcohol, 18+-regel; geen prijzen, acties of punt aan het eind van een kop.
+const panels = [...html.matchAll(/<div class="feest__panel" id="feest-[^"]+" data-feest="([^"]+)" data-start="([^"]+)" data-einde="([^"]+)"/g)];
+if (panels.map((m) => m[1]).join() !== "sinterklaas,kerst,oud-en-nieuw,halloween") fail("feestdagen: verwacht sinterklaas, kerst, oud-en-nieuw en halloween");
+const recipeCount = (html.match(/<article class="recipe">/g) || []).length;
+if (recipeCount !== 5) fail(`feestdagen: ${recipeCount} recepten, verwacht 5`);
+if ((html.match(/class="recipe__zonder"/g) || []).length !== recipeCount) fail("feestdagen: elk recept heeft een versie zonder alcohol nodig");
+const feestHtml = html.slice(html.indexOf('id="feestdagen"'), html.indexOf('id="collectie"'));
+if (!feestHtml.includes("Geniet, maar drink met mate")) fail("feestdagen: 18+-regel ontbreekt");
+if (/€|euro|korting|gratis|aanbieding/i.test(feestHtml)) fail("feestdagen: prijs of actie in de recepten");
+for (const file of pages.filter((f) => f !== "social/index.html")) for (const m of checked[file].html.matchAll(/<h[1-6][^>]*>([^<]*(?:<em>[^<]*<\/em>[^<]*)*)<\/h[1-6]>/g)) if (/[.!]$/.test(m[1].trim())) fail(`kop: ${file} eindigt met een punt: ${m[1].slice(0, 50)}`);
 
 const { products, categories } = await import(pathToFileURL(join(root, "assets/js/products.js")).href);
 const categoryIds = new Set(categories.map((c) => c.id));

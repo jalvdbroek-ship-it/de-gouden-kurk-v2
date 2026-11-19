@@ -31,6 +31,7 @@
   <script defer src="assets/vendor/ScrollTrigger.min.js"></script>
   <script defer src="assets/vendor/lenis.min.js"></script>
   <script type="module" src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/feestdagen.js"></script>
   <script type="module" src="assets/js/motion.js"></script>
   <script type="application/ld+json">
   {
@@ -66,6 +67,7 @@
       </a>
       <nav class="nav" aria-label="Hoofdmenu" data-nav>
         <ul>
+          <li><a href="#feestdagen">Recepten</a></li>
           <li><a href="#collectie">Collectie</a></li>
           <li><a href="#advies">Advies</a></li>
           <li><a href="#samenstellingen">Samenstellingen</a></li>
@@ -87,6 +89,7 @@
     </div>
     <div class="menu-panel" id="menu-panel" data-menu-panel hidden>
       <ul>
+        <li><a href="#feestdagen">Recepten</a></li>
         <li><a href="#collectie">Collectie</a></li>
         <li><a href="#advies">Advies</a></li>
         <li><a href="#samenstellingen">Samenstellingen</a></li>
@@ -158,10 +161,103 @@
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Uit de kast</p>
-          <h2 class="section-title" id="kast-titel">Drie flessen om mee te beginnen.</h2>
+          <h2 class="section-title" id="kast-titel">Drie flessen om mee te beginnen</h2>
           <p class="section-intro">Een Schotse blend van twaalf jaar, een cognac en de Italiaanse bitter achter elke goede negroni. Klassiekers die op elke plank horen.</p>
         </div>
         <ol class="featured" data-featured></ol>
+      </div>
+    </section>
+
+    <section class="section section--ivory feest" id="feestdagen" aria-labelledby="feest-titel" data-feest-root>
+      <div class="wrap">
+        <div class="section-head section-head--split">
+          <div>
+            <p class="eyebrow">Feestdagen</p>
+            <h2 class="section-title" id="feest-titel">Recepten voor <em>de feestdagen</em></h2>
+          </div>
+          <p class="section-intro" data-feest-status>Voor elke feestdag een recept: Sinterklaas, Kerst, oud en nieuw en Halloween. Alles ook met een versie zonder alcohol.</p>
+        </div>
+        <div class="feest__panel" id="feest-sinterklaas" data-feest="sinterklaas" data-start="11-01" data-einde="12-05">
+          <div class="feest__head"><h3 class="feest__title">Speculaas voor Sinterklaas</h3><p class="feest__periode">1 november tot en met 5 december</p></div>
+          <p class="feest__intro">Speculaas hoort bij november. Hier zit de smaak in de siroop, met een gewone whisky als basis.</p>
+          <div class="recipes">
+            <article class="recipe">
+              <header class="recipe__head"><h4 class="recipe__title">Speculaas Old Fashioned</h4><p class="recipe__meta">1 glas · 5 minuten, plus 10 minuten voor de siroop</p></header>
+              <p class="recipe__intro">Een klassieke Old Fashioned, met een siroop van speculaaskruiden in plaats van gewone suiker.</p>
+              <p class="recipe__vooraf"><strong>Vooraf:</strong> Maak de speculaassiroop. Laat 100 g suiker, 100 ml water en 1 theelepel speculaaskruiden 5 minuten zachtjes koken en laat het afkoelen. In de koelkast blijft de siroop een week goed.</p>
+              <div class="recipe__cols">
+                <div><p class="recipe__label">Wat je nodig hebt</p><ul><li>6 cl whisky</li><li>1 theelepel speculaassiroop</li><li>2 scheuten bitters</li><li>1 stuk sinaasappelschil</li><li>ijsblokjes, het liefst 1 groot blok</li></ul></div>
+                <div><p class="recipe__label">Zo maak je het</p><ol><li>Doe de whisky, de siroop en de bitters met een paar ijsblokjes in een mengglas.</li><li>Roer 30 seconden, tot het glas koud aanvoelt.</li><li>Giet het over een groot ijsblok in een kort glas.</li><li>Knijp de sinaasappelschil boven het glas uit en leg hem erin.</li></ol></div>
+              </div>
+              <p class="recipe__zonder"><strong>Zonder alcohol:</strong> Neem 6 cl sterke, koude zwarte thee in plaats van de whisky. De rest blijft hetzelfde.</p>
+              <p class="recipe__tip">Kies een whisky die rond en zacht is. Die laat de kruiden meespelen.</p>
+              <p class="recipe__tip">Past bij: Johnnie Walker Black Label, Ballantine's Finest. <a href="#collectie">Bekijk de collectie</a></p>
+            </article>
+          </div>
+        </div>
+        <div class="feest__panel" id="feest-kerst" data-feest="kerst" data-start="12-06" data-einde="12-26" hidden>
+          <div class="feest__head"><h3 class="feest__title">Warm en romig voor Kerst</h3><p class="feest__periode">6 tot en met 26 december</p></div>
+          <p class="feest__intro">Warm en romig, voor aan tafel met mensen die je graag ziet.</p>
+          <div class="recipes">
+            <article class="recipe">
+              <header class="recipe__head"><h4 class="recipe__title">Eggnog</h4><p class="recipe__meta">4 glazen · 25 minuten, plus 2 uur koelen</p></header>
+              <p class="recipe__intro">Een romig kerstdrankje van ei, melk en room, met nootmuskaat erover.</p>
+              <div class="recipe__cols">
+                <div><p class="recipe__label">Wat je nodig hebt</p><ul><li>4 eierdooiers</li><li>80 g suiker</li><li>500 ml melk</li><li>250 ml room</li><li>1 theelepel vanille</li><li>12 cl rum of cognac</li><li>nootmuskaat om te raspen</li></ul></div>
+                <div><p class="recipe__label">Zo maak je het</p><ol><li>Klop de eierdooiers met de suiker tot een lichte massa.</li><li>Verwarm de melk, de room en de vanille tot er stoom afkomt. Laat het niet koken.</li><li>Giet een bakje van de warme melk al roerend bij de dooiers. Giet daarna alles terug in de pan.</li><li>Verwarm 5 minuten op laag vuur en blijf roeren, tot de massa iets dikker wordt.</li><li>Laat afkoelen, roer de rum of cognac erdoor en zet het minstens 2 uur in de koelkast.</li><li>Roer nog eens door, schenk in kleine glazen en rasp wat nootmuskaat erover.</li></ol></div>
+              </div>
+              <p class="recipe__zonder"><strong>Zonder alcohol:</strong> Laat de rum of cognac weg en doe er een extra theelepel vanille bij.</p>
+              <p class="recipe__tip">Cognac maakt het warm en rond. Rum maakt het zoeter. Bewaar het hooguit 2 dagen in de koelkast.</p>
+              <p class="recipe__tip">Past bij: Hennessy VS, Havana Club 3 Years. <a href="#collectie">Bekijk de collectie</a></p>
+            </article>
+            <article class="recipe">
+              <header class="recipe__head"><h4 class="recipe__title">Warme wijn met sinaasappel</h4><p class="recipe__meta">4 glazen · 20 minuten</p></header>
+              <p class="recipe__intro">Rode wijn die zacht warm wordt met sinaasappel, kaneel en kruidnagel.</p>
+              <div class="recipe__cols">
+                <div><p class="recipe__label">Wat je nodig hebt</p><ul><li>1 fles rode wijn (75 cl)</li><li>1 sinaasappel, in schijven</li><li>2 kaneelstokjes</li><li>4 kruidnagels</li><li>2 steranijs</li><li>3 eetlepels suiker of honing</li></ul></div>
+                <div><p class="recipe__label">Zo maak je het</p><ol><li>Doe alles in een pan.</li><li>Verwarm 15 minuten op laag vuur. Laat de wijn niet koken, want dan wordt hij bitter.</li><li>Schep de kruiden eruit en schenk in warme glazen.</li></ol></div>
+              </div>
+              <p class="recipe__zonder"><strong>Zonder alcohol:</strong> Gebruik 600 ml rood druivensap en 150 ml sterke zwarte thee in plaats van de wijn. Proef eerst, voordat je er suiker bij doet.</p>
+              <p class="recipe__tip">Neem een wijn die niet te zwaar is.</p>
+              <p class="recipe__tip">Wijn vind je in de supermarkt naast de winkel. Vraag aan de toonbank welke kruiden en welke wijn er goed bij passen.</p>
+            </article>
+          </div>
+        </div>
+        <div class="feest__panel" id="feest-oud-en-nieuw" data-feest="oud-en-nieuw" data-start="12-27" data-einde="01-02" hidden>
+          <div class="feest__head"><h3 class="feest__title">Bubbels voor oud en nieuw</h3><p class="feest__periode">27 december tot en met 2 januari</p></div>
+          <p class="feest__intro">Bubbels voor middernacht, met een scheutje zwarte bes.</p>
+          <div class="recipes">
+            <article class="recipe">
+              <header class="recipe__head"><h4 class="recipe__title">Bubbels met cassis</h4><p class="recipe__meta">1 glas · 2 minuten</p></header>
+              <p class="recipe__intro">Droge bubbels met een scheutje zwarte bessenlikeur. Snel klaar, mooi van kleur.</p>
+              <div class="recipe__cols">
+                <div><p class="recipe__label">Wat je nodig hebt</p><ul><li>2 cl crème de cassis (zwarte bessenlikeur)</li><li>10 cl droge bubbels, koud</li><li>1 stukje citroenschil</li></ul></div>
+                <div><p class="recipe__label">Zo maak je het</p><ol><li>Schenk de cassis in een koud glas.</li><li>Vul langzaam aan met de bubbels.</li><li>Draai het stukje citroenschil boven het glas en leg het erin.</li></ol></div>
+              </div>
+              <p class="recipe__zonder"><strong>Zonder alcohol:</strong> Neem 2 cl zwarte bessensap en 10 cl alcoholvrije bubbels of bruisend water.</p>
+              <p class="recipe__tip">Rij je nog? Kies dan de versie zonder alcohol.</p>
+              <p class="recipe__tip">Vraag aan de toonbank naar crème de cassis en droge bubbels.</p>
+            </article>
+          </div>
+        </div>
+        <div class="feest__panel" id="feest-halloween" data-feest="halloween" data-start="10-01" data-einde="10-31" hidden>
+          <div class="feest__head"><h3 class="feest__title">Een donker glas voor Halloween</h3><p class="feest__periode">1 tot en met 31 oktober</p></div>
+          <p class="feest__intro">Donker, scherp en met gember. Een glas dat bij een donkere avond past.</p>
+          <div class="recipes">
+            <article class="recipe">
+              <header class="recipe__head"><h4 class="recipe__title">Rum, gember en limoen</h4><p class="recipe__meta">1 glas · 3 minuten</p></header>
+              <p class="recipe__intro">Een lang drankje met veel ijs. Scherp van de gember, fris van de limoen.</p>
+              <div class="recipe__cols">
+                <div><p class="recipe__label">Wat je nodig hebt</p><ul><li>5 cl rum</li><li>12 cl gemberbier</li><li>het sap van een halve limoen</li><li>1 schijfje limoen</li><li>veel ijs</li></ul></div>
+                <div><p class="recipe__label">Zo maak je het</p><ol><li>Vul een hoog glas met ijs.</li><li>Knijp het limoensap erin en voeg de rum toe.</li><li>Schenk het gemberbier erbij.</li><li>Roer één keer zacht en leg de limoenschijf erop.</li></ol></div>
+              </div>
+              <p class="recipe__zonder"><strong>Zonder alcohol:</strong> Laat de rum weg. Neem gemberbier met limoen en een scheutje zwarte thee voor de donkere kleur.</p>
+              <p class="recipe__tip">Hoe donkerder de rum, hoe kruidiger het glas. Een lichte rum maakt het frisser.</p>
+              <p class="recipe__tip">Past bij: Havana Club 3 Years, Bacardi Carta Blanca. <a href="#collectie">Bekijk de collectie</a></p>
+            </article>
+          </div>
+        </div>
+        <p class="feest__foot">Alleen voor 18+. Geniet, maar drink met mate. <a href="https://jalvdbroek-ship-it.github.io/the-taste-club/#/recepten" rel="noopener">Alle feestdagen staan ook in de app</a></p>
       </div>
     </section>
 
@@ -170,7 +266,7 @@
         <div class="section-head section-head--split">
           <div>
             <p class="eyebrow">De collectie</p>
-            <h2 class="section-title" id="collectie-titel">Kies online, haal op aan het Raadhuisplein.</h2>
+            <h2 class="section-title" id="collectie-titel">Kies online, haal op aan het Raadhuisplein</h2>
           </div>
           <p class="section-intro">Hier staan elf flessen als voorbeeld. In de winkel staan er ruim 340; staat jouw fles er niet bij, bel dan even.</p>
         </div>
@@ -206,7 +302,7 @@
         </figure>
         <div class="advice__copy">
           <p class="eyebrow eyebrow--light">Advies aan de toonbank</p>
-          <h2 class="section-title section-title--light" id="advies-titel">Vertel wat je lekker vindt. Wij weten welke fles erbij past.</h2>
+          <h2 class="section-title section-title--light" id="advies-titel">Vertel wat je lekker vindt. Wij weten welke fles erbij past</h2>
           <p>Een fles kiezen doe je het liefst met iemand die ze kent. Zoek je een cadeau, iets voor bij het diner of een fles die je nog nooit hebt geprobeerd? Aan de toonbank denken we met je mee.</p>
           <ul class="advice__list">
             <li><span class="advice__num">I</span><div><h3>Een cadeau dat klopt</h3><p>Vertel voor wie het is en wat hij of zij drinkt. Wij pakken een fles die past.</p></div></li>
@@ -224,7 +320,7 @@
         <div class="section-head section-head--split">
           <div>
             <p class="eyebrow">Samenstellingen</p>
-            <h2 class="section-title" id="samen-titel">Een tafel vol, afgestemd op het moment.</h2>
+            <h2 class="section-title" id="samen-titel">Een tafel vol, afgestemd op het moment</h2>
           </div>
           <p class="section-intro">Van een verjaardag tot een borrel met het hele team. Dit zijn drie voorstellen; de inhoud, de prijs en de levering stemmen we per gelegenheid met je af.</p>
         </div>
@@ -256,7 +352,7 @@
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow">Afhalen of bezorgen</p>
-          <h2 class="section-title" id="ontvangen-titel">Jij kiest hoe de fles bij je komt.</h2>
+          <h2 class="section-title" id="ontvangen-titel">Jij kiest hoe de fles bij je komt</h2>
         </div>
         <div class="ways">
           <article class="way">
@@ -275,7 +371,7 @@
         <aside class="age-note" aria-labelledby="leeftijd-titel">
           <span class="age-note__badge" aria-hidden="true">18+</span>
           <div>
-            <h3 id="leeftijd-titel">We vragen twee keer naar je leeftijd.</h3>
+            <h3 id="leeftijd-titel">We vragen twee keer naar je leeftijd</h3>
             <p>Bij het bestellen, en nog een keer bij het afhalen of aan de deur. Neem een geldig legitimatiebewijs mee of houd het klaar. Zo schrijft de <a href="https://wetten.overheid.nl/BWBR0002458/" rel="noopener">Alcoholwet</a> het voor.</p>
           </div>
         </aside>
@@ -288,7 +384,7 @@
         <div class="club__copy">
           <div class="section-head">
             <p class="eyebrow eyebrow--light">The Taste Club</p>
-            <h2 class="section-title section-title--light" id="app-titel">De toonbank, ook <em>op je telefoon.</em></h2>
+            <h2 class="section-title section-title--light" id="app-titel">De toonbank, ook <em>op je telefoon</em></h2>
           </div>
           <p>The Taste Club is de app van De Gouden Kurk. Ontdek welke smaak bij je past, zoek een cadeau voor iemand anders en houd je eigen flessen en proefnotities bij.</p>
           <ul class="club__list">
@@ -309,7 +405,7 @@
       <div class="wrap visit">
         <div class="visit__copy">
           <p class="eyebrow">Bezoek</p>
-          <h2 class="section-title" id="bezoek-titel">Kom langs aan het Raadhuisplein.</h2>
+          <h2 class="section-title" id="bezoek-titel">Kom langs aan het Raadhuisplein</h2>
           <dl class="visit__details">
             <div><dt>Adres</dt><dd>Raadhuisplein 6<br>3181 CG Rozenburg</dd></div>
             <div><dt>Telefoon</dt><dd><a href="tel:+31644999844">06 44999844</a></dd></div>
@@ -341,6 +437,7 @@
       <nav aria-label="Voettekst">
         <p class="footer__label">Op deze pagina</p>
         <ul>
+          <li><a href="#feestdagen">Recepten</a></li>
           <li><a href="#collectie">Collectie</a></li>
           <li><a href="#advies">Advies</a></li>
           <li><a href="#samenstellingen">Samenstellingen</a></li>
@@ -370,7 +467,7 @@
     <div class="gate__inner">
       <svg class="gate__mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#kurk"/></svg>
       <p class="eyebrow eyebrow--light">Alleen voor 18-plussers</p>
-      <h2 class="gate__title" id="gate-titel">Welkom bij De Gouden Kurk.</h2>
+      <h2 class="gate__title" id="gate-titel">Welkom bij De Gouden Kurk</h2>
       <p id="gate-tekst" data-gate-text>Ben je 18 jaar of ouder?</p>
       <div class="gate__actions" data-gate-actions>
         <button class="button button--brass" type="button" data-gate-yes>Ja, ik ben 18 of ouder</button>
@@ -453,7 +550,7 @@
     </form>
     <div class="done" data-done hidden tabindex="-1">
       <svg class="done__mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#kurk"/></svg>
-      <h3 data-done-title>Dank je wel.</h3>
+      <h3 data-done-title>Dank je wel</h3>
       <p data-done-text></p>
       <p class="drawer__note">Dit was een proefbestelling in een websiteconcept. Er is niets besteld, niets betaald en niets opgeslagen.</p>
       <button class="button button--dark" type="button" data-close>Terug naar de winkel</button>

@@ -94,6 +94,25 @@ if (/data-motion="gsap"/.test(await (await fetch(base)).text())) {
   await page.goto(base);
   ok("zonder JavaScript: inhoud zichtbaar en noscript-melding", await page.locator("#winkel h2").isVisible() && await page.locator(".noscript").isVisible());
   await ctx.close(); }
+// Feestdagen: de periode volgt de datum en de recepten blijven leesbaar op een telefoon.
+for (const [datum, id, titel] of [["2026-11-19", "sinterklaas", /speculaas/i], ["2026-12-20", "kerst", /kerst/i], ["2027-01-01", "oud-en-nieuw", /bubbels/i], ["2026-10-20", "halloween", /halloween/i]]) {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const page = await ctx.newPage();
+  page.on("console", (m) => { if (["error", "warning"].includes(m.type())) issues.push(m.text()); });
+  page.on("pageerror", (e) => issues.push(e.message));
+  await page.addInitScript((iso) => {
+    const t = new Date(`${iso}T12:00:00`).getTime(), Echt = Date;
+    globalThis.Date = class extends Echt { constructor(...a) { a.length ? super(...a) : super(t); } static now() { return t; } };
+    sessionStorage.setItem("dgk-18", "ja");
+  }, datum);
+  await page.goto(base, { waitUntil: "networkidle" });
+  const zichtbaar = await page.evaluate(() => [...document.querySelectorAll(".feest__panel")].filter((x) => !x.hidden).map((x) => x.dataset.feest));
+  ok(`feestdagen ${datum}: alleen ${id} staat open`, zichtbaar.length === 1 && zichtbaar[0] === id);
+  ok(`feestdagen ${datum}: kop past bij de periode`, titel.test(await page.locator(".feest__panel:not([hidden]) .feest__title").innerText()));
+  ok(`feestdagen ${datum}: elk recept heeft een versie zonder alcohol`, (await page.locator(".feest__panel:not([hidden]) .recipe").count()) === (await page.locator(".feest__panel:not([hidden]) .recipe__zonder").count()));
+  ok(`feestdagen ${datum}: geen horizontaal scrollen`, await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  await ctx.close();
+}
 console.log(results.join("\n"));
 console.log("console/CSP/extern:", issues.length ? issues.join(" | ") : "geen");
 await browser.close();

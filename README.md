@@ -36,6 +36,7 @@ PLAYWRIGHT_CORE=<pad>/playwright-core/index.mjs CHROME="/Applications/Google Chr
   met zoeken, filteren per soort, sorteren en een productvenster.
 - Advies aan de toonbank, drie samenstellingen als voorstel, afhalen of
   bezorgen, het verhaal van de winkel en bezoek met een lokale kaart.
+- Recepten voor de feestdagen (`#feestdagen`): vier perioden (Halloween, Sinterklaas, Kerst, oud en nieuw) met in totaal vijf recepten, elk ook zonder alcohol. `assets/js/feestdagen.js` toont alleen de periode die bij de datum past; `?feestdag=kerst` laat een andere zien. Zonder JavaScript staat Sinterklaas open. Dezelfde teksten staan in de app (`the-taste-club/src/data/recepten.json`); pas je het ene aan, pas dan ook het andere aan.
 - Winkelmand (bewaard in `localStorage`, alleen product-id's en aantallen) en
   een proefbestelling: afhalen of bezorgen binnen 3181, met leeftijdsbevestiging.
   Er wordt niets verstuurd, betaald of opgeslagen; het formulier wordt na

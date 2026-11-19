@@ -288,3 +288,26 @@ body { background: var(--night); }
 @media (max-width: 340px) {
   .header .brand__mark { display: none; }
 }
+
+/* feestdagen: één periode tegelijk, gekozen op datum */
+.feest__panel[hidden] { display: none; }
+.feest__panel { display: grid; gap: 1.5rem; }
+.feest__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 2rem; padding-top: 1.5rem; border-top: 1px solid var(--ink); }
+.feest__title { font: 400 clamp(1.6rem, 3vw, 2.4rem)/1.1 var(--display); text-transform: uppercase; }
+.feest__periode { color: var(--brass-deep); font-weight: 600; font-size: 0.9375rem; }
+.feest__intro { max-width: 40rem; color: var(--ink-soft); font-size: 1.0625rem; text-wrap: pretty; }
+.recipes { display: grid; gap: 2rem; }
+.recipe { display: grid; gap: 1.1rem; padding: clamp(1.5rem, 3vw, 2.5rem); background: #fff; border: 1px solid var(--line-dark); border-top: 3px solid var(--brass-deep); }
+.recipe__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.4rem 1.5rem; }
+.recipe__title { font: 400 clamp(1.4rem, 2.4vw, 1.9rem)/1.15 var(--display); text-transform: uppercase; }
+.recipe__meta { color: var(--ink-soft); font-size: 0.9375rem; }
+.recipe__intro, .recipe__vooraf { max-width: 44rem; color: var(--ink-soft); }
+.recipe__cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 1.5rem clamp(1.5rem, 4vw, 3.5rem); }
+.recipe__label { margin-bottom: 0.6rem; font: 600 0.8125rem/1.2 var(--sans); letter-spacing: 0.1em; text-transform: uppercase; color: var(--brass-deep); }
+.recipe ul, .recipe ol { display: grid; gap: 0.45rem; padding-left: 1.2rem; }
+.recipe ul { list-style: disc; }
+.recipe ol { list-style: decimal; }
+.recipe__zonder { padding: 1rem 1.25rem; border: 1px solid var(--line-dark); background: var(--ivory); }
+.recipe__tip { font-size: 0.9375rem; color: var(--ink-soft); }
+.feest__foot { margin-top: 2rem; font-size: 0.9375rem; color: var(--ink-soft); }
+@media (max-width: 760px) { .recipe__cols { grid-template-columns: 1fr; } }
