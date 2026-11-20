@@ -133,14 +133,14 @@ const records = [
     featured: false,
     image: "assets/products/havana-club-3.webp",
     imageAlt: "Fles Havana Club Añejo 3 Años",
-    imageWidth: 114,
-    imageHeight: 400,
+    imageWidth: 226,
+    imageHeight: 826,
     credit: {
-      title: "Havana Club Añejo 3 Años",
-      creator: "Open Food Facts / product photo contributors",
-      license: "CC BY-SA",
-      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
-      sourceUrl: "https://world.openfoodfacts.org/product/8501110081641",
+      title: "Havana bottles (Havana Club Añejo 3 Años)",
+      creator: "Knut.C (Wikimedia Commons)",
+      license: "CC BY-SA 3.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+      sourceUrl: "https://commons.wikimedia.org/wiki/File:Havana_bottles.png",
       changes: "achtergrond verwijderd en bijgesneden"
     }
   },
